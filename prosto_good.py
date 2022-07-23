@@ -30,11 +30,17 @@ class Good:
 		for picture in pictures:
 			append_if_not_exists('https://doma-prosto.ru' + picture['href'], self.pictures)
 		
-		self.description =  soup.find('div', {'itemprop':'description'}).text.replace(chr(10),' ').strip()
+		try: self.description =  soup.find('div', {'itemprop':'description'}).text.replace(chr(10),' ').strip()
+		except: pass
+
 
 		try: # more than one color and price
-			prices = soup.find('ul',{'class':'skus js-product-skus'}).find_all('li', {'itemprop':'offers'})
+			prices = soup.find_all('label')
+			if len(prices)==0:
+				raise Exception('Zero count of prices')
 			for oprice in prices:
+				if 'class="disabled"' in str(oprice):
+					break # don't allowed for purchase
 				name = oprice.find('span',{'itemprop':'name'}).text.strip()
 				price = oprice.find('span',{'class':'price tiny nowrap'}).text.replace('₽','').strip()
 				self.sizes.append(name)
