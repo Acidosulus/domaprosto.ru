@@ -26,10 +26,15 @@ class Good:
 		ol.Get_HTML(pc_good_link)
 		soup = BS(ol.page_source, features='html5lib')
 		self.name = soup.find('h1').text.strip()
+
 		pictures = soup.find_all('a',{'class':'gallery-previews-l__link'})
 		for picture in pictures:
 			append_if_not_exists('https://doma-prosto.ru' + picture['href'], self.pictures)
-		
+		if len(self.pictures)==0:
+			lc_picture_link = soup.find('img',{'class':'product-gallery-main__el-photo'})['src']
+			append_if_not_exists('https://doma-prosto.ru' + lc_picture_link, self.pictures)
+
+
 		try: self.description =  soup.find('div', {'itemprop':'description'}).text.replace(chr(10),' ').strip()
 		except: pass
 
