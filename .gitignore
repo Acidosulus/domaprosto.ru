@@ -1,0 +1,7 @@
+# created by virtualenv automatically
+chromedriver.exe
+__pycache__
+csvs
+options.ini
+*.html
+*.json

@@ -1,0 +1,1 @@
+python prosto.py catalog "https://doma-prosto.ru/category/dlya-avto/" ".\csvs\avto.csv" "1"

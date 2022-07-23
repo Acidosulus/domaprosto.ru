@@ -1,0 +1,46 @@
+from my_library import *
+from prosto_driver import *
+import colorama
+from colorama import Fore, Back, Style
+from urllib.parse import quote
+from bs4 import BeautifulSoup as BS
+from click import echo, style
+
+def poiskpers(url):
+	geourl = '{0}'.format(quote(url))
+	return geourl
+
+class Good:
+	def __init__(self, ol:WD, pc_good_link, pc_price:str):
+		pc_good_link = pc_good_link.replace(r'amp;', '')
+		self.pictures = []
+		self.sizes = []
+		self.prices = []
+		self.color = ''
+		self.article = ''
+		self.name = ''
+		self.description= ''
+		self.price = ''
+		self.brand = ''
+		echo(style('Товар: ', fg='bright_yellow') + style(pc_good_link, fg='bright_white') + style('  Прайс:', fg='bright_cyan') + style(pc_price, fg='bright_green'))
+		ol.Get_HTML(pc_good_link)
+		soup = BS(ol.page_source, features='html5lib')
+		self.name = soup.find('h1').text.strip()
+		pictures = soup.find_all('a',{'class':'gallery-previews-l__link'})
+		for picture in pictures:
+			append_if_not_exists('https://doma-prosto.ru' + picture['href'], self.pictures)
+		
+		self.description =  soup.find('div', {'itemprop':'description'}).text.replace(chr(10),' ').strip()
+
+		try: # more than one color and price
+			prices = soup.find('ul',{'class':'skus js-product-skus'}).find_all('li', {'itemprop':'offers'})
+			for oprice in prices:
+				name = oprice.find('span',{'itemprop':'name'}).text.strip()
+				price = oprice.find('span',{'class':'price tiny nowrap'}).text.replace('₽','').strip()
+				self.sizes.append(name)
+				self.prices.append(price)
+		except: # one price and no colors
+			price = soup.find('div', {'class':'price'}).text.replace('₽','').strip()
+			self.sizes.append('*')
+			self.prices.append(price)
+
