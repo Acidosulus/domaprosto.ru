@@ -51,7 +51,10 @@ class Good:
 				self.sizes.append(name)
 				self.prices.append(price)
 		except: # one price and no colors
-			price = soup.find('div', {'class':'price'}).text.replace('₽','').strip()
+			try:
+				price = soup.find('div', {'class':'price'}).text.replace('₽','').strip()
+			except:
+				price = soup.find('span', {'class':'price'}).text.replace('₽','').strip()
 			self.sizes.append('*')
 			self.prices.append(price)
 
