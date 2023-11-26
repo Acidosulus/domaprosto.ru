@@ -96,14 +96,12 @@ class WD:
 		#self.Write_To_File(f'catalog_{uuid.uuid4()}.html')
 		soup = BS(self.page_source, features='html5lib')
 		paginator =soup.find_all('a',{'class':'inline-link'})
+		if len(paginator)<=0:
+			return pc_link
 		paginator = paginator[len(paginator)-1]
-		if len(str(paginator))==0:
-#			print('Not found')
-			return ''
-		else:
-			if len(paginator['href'])>0:
+		if len(paginator['href'])>0:
 #				print('Found')
-				return self.site_url[0:len(self.site_url)-1] + paginator['href']
+			return self.site_url[0:len(self.site_url)-1] + paginator['href']
 
 
 
