@@ -25,6 +25,11 @@ class Good:
 		echo(style('Товар: ', fg='bright_yellow') + style(pc_good_link, fg='bright_white') + style('  Прайс:', fg='bright_cyan') + style(pc_price, fg='bright_green'))
 		ol.Get_HTML(pc_good_link)
 		soup = BS(ol.page_source, features='html5lib')
+		
+		## remove additinal goods miniatures into the page bottom
+		while soup.find('div',{'class':'product-list'})!=None:
+			soup.find('div',{'class':'product-list'}).replace_with('')
+
 		self.name = soup.find('h1').text.strip()
 
 		pictures = soup.find_all('a',{'class':'gallery-previews-l__link'})
