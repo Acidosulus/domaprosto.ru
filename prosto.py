@@ -70,15 +70,17 @@ if sys.argv[1] == 'catalog':
                     except:pass
                 j = j + 1
                 print('Шаг: ', j)
-            price.add_good('',
-                                prepare_str(lc_name),
-                                prepare_str(lo_good.description),
-                                prepare_str( str(round(float(lc_uprice.replace(',', '.').replace(' ', ''))*float(sys.argv[4]), 2))),
-                                '15',
-                                prepare_str(link),
-                                prepare_for_csv_non_list(lo_good.pictures),
-                                prepare_for_csv_list(ll_sizes))
-            price.write_to_csv(sys.argv[3])
+            try:
+                price.add_good('',
+                                    prepare_str(lc_name),
+                                    prepare_str(lo_good.description),
+                                    prepare_str( str(round(float(lc_uprice.replace(',', '.').replace(' ', ''))*float(sys.argv[4]), 2))),
+                                    '15',
+                                    prepare_str(link),
+                                    prepare_for_csv_non_list(lo_good.pictures),
+                                    prepare_for_csv_list(ll_sizes))
+                price.write_to_csv(sys.argv[3])
+            except: pass
 
 if sys.argv[1] == 'reverse':
     reverse_csv_price(sys.argv[2])
