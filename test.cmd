@@ -1,4 +1,4 @@
-python prosto.py good "https://doma-prosto.ru/product/naturalnyy-kontsentrirovannyy-dezodorant-rich/" ".\csvs\test.csv" "1"
+python prosto.py good "https://doma-prosto.ru/product/osvetlyayushchiy-loson-dlya-litsa-dlya-suzheniya-por-ciracle-105-ml/" ".\csvs\test.csv" "1"
 
 
 
