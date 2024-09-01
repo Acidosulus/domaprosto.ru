@@ -9,4 +9,6 @@ start nakleyki.cmd
 start nanoshchyetki.cmd
 start novinki.cmd
 start rasprodazha.cmd
-start kosmetika_koreya
+start kosmetika_koreya.cmd
+start bythim.cmd
+start megasale.cmd

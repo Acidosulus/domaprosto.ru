@@ -17,6 +17,7 @@ def unload_one_good(dw:WD, lc_link_on_good: str, pc_price:str):
 	print(Fore.YELLOW + "Название:" + Fore.LIGHTGREEN_EX, lo_good.name, Fore.RESET)
 	print(Fore.YELLOW + "Артикул:" + Fore.LIGHTGREEN_EX, lo_good.article, Fore.RESET)
 	print(Fore.YELLOW + "Цены:" + Fore.LIGHTGREEN_EX, lo_good.prices, Fore.RESET)
+	print(Fore.YELLOW + "Ценa:" + Fore.LIGHTGREEN_EX, lo_good.price, Fore.RESET)
 	print(Fore.YELLOW + "Описание:" + Fore.LIGHTGREEN_EX, lo_good.description, Fore.RESET)
 	print(Fore.YELLOW + "Картинки:" + Fore.LIGHTGREEN_EX, lo_good.pictures, Fore.RESET)
 	print(Fore.YELLOW + "Размеры:" + Fore.LIGHTGREEN_EX, lo_good.sizes, Fore.RESET)

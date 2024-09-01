@@ -69,9 +69,9 @@ class WD:
 		for link in list_of_pages:
 			self.Get_HTML(link)
 			soup = BS(self.page_source, features='html5lib')
-			items = soup.find_all('div', {'class': 'product-tile__name'})
+			items = soup.find_all('a', {'class': 's-product-header'})
 			for item in items:
-				lc_link = item.find('a')['href']
+				lc_link = item['href']
 				lc_link = (self.site_url[0:len(self.site_url)-1] if len(lc_link)>0 else '') + lc_link
 				echo(style('Товар каталога: ', fg='bright_green') + style(lc_link, fg='green'))
 				append_if_not_exists(lc_link, ll_catalog_items)
@@ -95,12 +95,11 @@ class WD:
 		self.Get_HTML(pc_link)
 		#self.Write_To_File(f'catalog_{uuid.uuid4()}.html')
 		soup = BS(self.page_source, features='html5lib')
-		paginator =soup.find_all('a',{'class':'inline-link'})
+		paginator =soup.find_all('a',{'class':'page-link'})
 		if len(paginator)<=0:
 			return pc_link
 		paginator = paginator[len(paginator)-1]
 		if len(paginator['href'])>0:
-#				print('Found')
 			return self.site_url[0:len(self.site_url)-1] + paginator['href']
 
 
