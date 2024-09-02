@@ -39,8 +39,11 @@ class Good:
 		if len(self.pictures)==0:
 			lc_picture_link = soup.find('img',{'class':'product-gallery-main__el-photo'})['src']
 			append_if_not_exists('https://doma-prosto.ru' + lc_picture_link, self.pictures)
-		for img in soup.find('div', {'class':'s-product-description s-user-content'}).find_all('img'): ## pictures from description
-			append_if_not_exists(img['src'], self.pictures)
+		try:	
+			for img in soup.find('div', {'class':'s-product-description s-user-content'}).find_all('img'): ## pictures from description
+				append_if_not_exists(img['src'], self.pictures)
+		except:
+			pass
 
 		try: self.description =  soup.find('div', {'itemprop':'description'}).text.replace(chr(10),' ').strip()
 		except: pass
