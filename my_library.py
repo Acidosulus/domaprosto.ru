@@ -69,7 +69,8 @@ def prepare_for_csv_non_list (pc_value):	 # подготовка к записи
 	else:	   #if type(pc_value) == "<class 'list'>"
 		lc = ''
 		for i in pc_value:
-			lc = lc + ' ' + prepare_str(i)
+			if 'data:image' not in prepare_str(i):
+				lc = lc + ' ' + prepare_str(i)
 		return lc.strip()
 	return pc_value
 
@@ -91,7 +92,7 @@ def prepare_str(pc_value:str):  #удаляет из будущего парам
 	#print(pc_value)
 	#print(type(pc_value))
 	if pc_value != None:
-		return pc_value.replace('"', '').replace(';', ' ').replace('\n', ' ').replace('\t', ' ')
+		return pc_value.replace('"', '').replace(';', ' ').replace('\n', ' ').replace('\t', ' ').replace(chr(10), ' ').replace(chr(13), ' ').replace(chr(12), ' ')
 		#if type(pc_value)==str: return pc_value.replace('"', '').replace(';', ' ').replace('\n', ' ').replace('\t', ' ')
 		#if type(pc_value)==list:
 		#	for element in pc_value:

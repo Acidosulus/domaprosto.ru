@@ -35,13 +35,19 @@ class Good:
 
 		pictures = soup.find_all('a',{'class':'swiper-slide'})
 		for picture in pictures:
-			append_if_not_exists('https://doma-prosto.ru' + picture['href'], self.pictures)
+			if 'data:image' not in picture:
+				append_if_not_exists('https://doma-prosto.ru' + picture['href'], self.pictures)
 		if len(self.pictures)==0:
-			lc_picture_link = soup.find('img',{'class':'product-gallery-main__el-photo'})['src']
-			append_if_not_exists('https://doma-prosto.ru' + lc_picture_link, self.pictures)
+			try:
+				lc_picture_link = soup.find('img',{'class':'product-gallery-main__el-photo'})['src']
+				if 'data:image' not in lc_picture_link:
+					append_if_not_exists('https://doma-prosto.ru' + lc_picture_link, self.pictures)
+			except:
+				pass
 		try:	
 			for img in soup.find('div', {'class':'s-product-description s-user-content'}).find_all('img'): ## pictures from description
-				append_if_not_exists(img['src'], self.pictures)
+				if 'data:image' not in img['src']:
+					append_if_not_exists(img['src'], self.pictures)
 		except:
 			pass
 
