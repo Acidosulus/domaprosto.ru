@@ -44,6 +44,15 @@ class Good:
         except:
             pass
         
+        if len(self.pictures)==0:
+            link = soup.find(
+                    'img',
+                    {'class':"product-gallery-main__el-photo"}
+            )
+            append_if_not_exists(
+                'https://doma-prosto.ru' + link['src'],
+                self.pictures
+            )
 
         # for picture in pictures:
         #     if 'data:image' not in picture:
