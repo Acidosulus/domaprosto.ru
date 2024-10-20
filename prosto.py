@@ -39,7 +39,10 @@ if sys.argv[1] == 'good':
 
 if sys.argv[1] == 'catalog':
 	wd = Login()
+	link_on_pages = wd.Get_List_of_Catalog_Pages(sys.argv[2])
+	print('Ссылки на страницы каталога: ', link_on_pages)
 	links_list = wd.Get_List_Of_Links_On_Goods_From_Catalog(sys.argv[2])
+
 	print('Список товаров:', links_list)
 	ln_total = len(links_list)
 	ln_counter = 0
